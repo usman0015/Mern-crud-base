@@ -1,10 +1,27 @@
+const path = require('path');  // ← ADD THIS LINE!
+
 const express = require('express');
+const cookieParser = require("cookie-parser");
+
 require("dotenv").config();
+
+
 const connectDB = require("./config/db");
+
 const app = express();
-connectDB();
+
+
+
+
 
 app.use(express.json());
+app.use(cookieParser());
+connectDB();
+
+
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
+// router.post("/register", register);
 
 const Product = require("./models/Product");
 
